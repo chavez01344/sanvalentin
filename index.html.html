@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para mi Ani ❤️</title>
+
+<style>
+    body{
+        margin:0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .card{
+        position:relative;
+        margin-top:40px;
+        text-align:center;
+        background:white;
+        padding:40px;
+        border-radius:20px;
+        box-shadow:0 10px 25px rgba(0,0,0,0.2);
+        max-width:500px;
+        width:90%;
+        min-height:250px;
+        overflow:hidden;
+        z-index:2;
+    }
+
+    h1{color:#ff4b5c;}
+
+    button{
+        padding:12px 25px;
+        margin:10px;
+        font-size:18px;
+        border:none;
+        border-radius:10px;
+        cursor:pointer;
+        transition:0.3s;
+    }
+
+    #yes{background:#ff4b5c;color:white;}
+    #no{
+        background:#ccc;
+        position:absolute;
+    }
+
+    .foto-container{
+        width:100%;
+        margin-top:40px;
+        display:flex;
+        justify-content:center;
+    }
+
+    .foto-container img{
+        width:90%;
+        max-width:900px;
+        border-radius:20px;
+        box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    }
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO -->
+<audio id="musica" preload="auto" loop>
+    <source src="cancion.MP3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="card">
+    <h1>Hola, tengo algo muy importante que decirte ❤️</h1>
+    <p>Pero necesitas presionar el botón de abajito para verlo...</p>
+    <button onclick="next()">Descubrir</button>
+</div>
+
+<div class="foto-container">
+    <img src="foto.jpg" alt="Nosotros" onerror="this.src='foto.jpeg'">
+</div>
+
+<script>
+function next(){
+    // 🔊 AQUÍ se activa la música (permitido por el navegador)
+    const audio = document.getElementById("musica");
+    audio.volume = 0.35;
+    audio.play().catch(()=>{});
+
+    document.getElementById("card").innerHTML = `
+        <h1>Desde que te conocí...</h1>
+        <p>Mi vida cambió al encontrar una ángelita llamada Anel ✨</p>
+        <button onclick="final()">Sigue...</button>
+    `;
+}
+
+function final(){
+    document.getElementById("card").innerHTML = `
+        <h1>¿Me darías el honor de poder ser tu San Valentín? 💘</h1>
+        <button id="yes" onclick="yes()">¡SÍ!</button>
+        <button id="no" onmouseover="move()">No</button>
+    `;
+}
+
+function yes(){
+    document.getElementById("card").innerHTML = `
+        <h1>SIII, sabía que dirías que sí 😍</h1>
+        <p>Tu oso del Lorax el grande, te ama muchísimo ❤️</p>
+    `;
+}
+
+function move(){
+    const card = document.getElementById("card");
+    const noBtn = document.getElementById("no");
+
+    const cardRect = card.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+
+    const maxX = cardRect.width - btnRect.width - 20;
+    const maxY = cardRect.height - btnRect.height - 20;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+</script>
+
+</body>
+</html>
